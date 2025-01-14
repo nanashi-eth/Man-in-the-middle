@@ -161,16 +161,20 @@ class TitleScreen(Window):
             
     def draw_window_border(self):
         # Configurar el color y ancho del borde
-        border_color = (255, 255, 255, 255) 
+        border_color = (255, 255, 255)  # Color RGB
         border_width = 3
 
-        # Dibujar un rectángulo alrededor de la ventana (pegado al borde)
-        pyglet.graphics.draw(4, pyglet.gl.GL_LINE_LOOP,
-                             ('v2i', (border_width // 2, border_width // 2,
-                                      self.width - border_width // 2, border_width // 2,
-                                      self.width - border_width // 2, self.height - border_width // 2,
-                                      border_width // 2, self.height - border_width // 2)),
-                             ('c4B', border_color * 4))
+        # Crear las líneas del borde con pyglet.shapes
+        top_line = pyglet.shapes.Line(0, self.height, self.width, self.height, border_width, color=border_color)
+        bottom_line = pyglet.shapes.Line(0, 0, self.width, 0, border_width, color=border_color)
+        left_line = pyglet.shapes.Line(0, 0, 0, self.height, border_width, color=border_color)
+        right_line = pyglet.shapes.Line(self.width, 0, self.width, self.height, border_width, color=border_color)
+
+        # Dibujar las líneas
+        top_line.draw()
+        bottom_line.draw()
+        left_line.draw()
+        right_line.draw()
 
 
     def on_update(self, dt):
